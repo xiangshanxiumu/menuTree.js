@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="./menuTree.js"></script>
+    <link type="text/css" rel="styleSheet" href="./menuTree.css" />
+    <title>集团总工会</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .navigationBar {
+            width: 100%;
+            background-color: #E9E9E9;
+            position: relative;
+        }
+
+        .navigationBar_header {
+            padding: 0.25rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .navigationBar_title {
+            font-size: 1rem;
+            color: #333333;
+        }
+
+        .navigationBar_icon {
+            display: inline-block;
+            font-weight: bold;
+            color: #FF9900;
+            padding: 0 0.25rem;
+        }
+        #menuTree {
+            width:15rem;
+        }
+
+        /*@import url("./menuTree.css");*/
+    </style>
+</head>
+
+<body>
+    <!--顶部树形导航栏-->
+    <div class="navigationBar">
+        <div class="navigationBar_header">
+            <div class="navigationBar_innerwrap">
+                <span class="navigationBar_title">集团总工会</span>
+                <span class="navigationBar_icon">V</span>
+            </div>
+        </div>
+    </div>
+    <div id="menuTree"></div>
+    <div id="menuTree2"></div>
+    <!--顶部树形导航栏-->
+    <script>
+        /*基于JSON配置的顶部无限级树形导航栏*/
+        // JSON结构的导航栏配置信息
+        const menuTree = [{
+                "name": "集团总工会",
+                "url": "集团总工会.html",
+                "lists": [{
+                    "name": "福建省总工会",
+                    "url": "福建省总工会.html",
+                    "lists": [{
+                            "name": "福州市总工会",
+                            "url": "福州市总工会.html",
+                            "lists": [{
+                                    "name": "台江工会",
+                                    "url": "#"
+                                },
+                                {
+                                    "name": "鼓楼工会",
+                                    "url": "#"
+                                },
+                            ]
+                        },
+                        {
+                            "name": "厦门市总工会",
+                            "url": "#",
+                            "lists": [{
+                                    "name": "思明工会",
+                                    "url": "#"
+                                },
+                                {
+                                    "name": "海沧工会",
+                                    "url": "#"
+                                },
+                            ]
+                        },
+                        {
+                            "name": "龙岩市总工会",
+                            "url": "#",
+                            "lists": [{
+                                    "name": "新罗工会",
+                                    "url": "#"
+                                },
+                                {
+                                    "name": "永定工会",
+                                    "url": "#"
+                                },
+                            ]
+                        },
+                    ]
+                }]
+            },
+            {
+                "name": "聯通工會",
+                "url": "#",
+                "lists": [{
+                        "name": "联通福州市工会",
+                        "url": "#"
+                    },
+                    {
+                        "name": "联通厦门市工会",
+                        "url": "#"
+                    }
+                ]
+            }
+        ]
+
+        $(function () {
+            let ele = $('#menuTree')
+            // 点击document隐藏
+            $(document).click(function () {
+                $('#menuTree').fadeOut(300);
+            })
+            // 点击其余地方 隐藏 阻止事件冒泡原理
+            $('.navigationBar_innerwrap').click(function (event) {
+                //event.stopPropagation(); // 阻止事件冒泡
+                $('#menuTree').fadeIn(300);
+                return false; // 阻止事件冒泡
+
+            })
+            $('#menuTree').click(function (event) {
+                //event.stopPropagation(); // 阻止事件冒泡
+                return false; // 阻止事件冒泡
+            })
+            // new 一个实例
+            const menutree = new MenuTree(ele, menuTree, (el) => {
+                //console.log(el) // 当前点击触发导航条
+            });
+            //new MenuTree($('#menuTree2'), menuTree)
+        })
+    </script>
+</body>
+
+</html>
